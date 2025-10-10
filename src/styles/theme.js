@@ -33,7 +33,7 @@ const mainTheme = createTheme({
     divider: "#E6E6E6",
   },
   typography: {
-    fontFamily: "Inter, sans-serif",
+    fontFamily: "Inter, sans-serif !important",
     h1: {
       fontFamily: "Montserrat, sans-serif",
       fontWeight: 700,
