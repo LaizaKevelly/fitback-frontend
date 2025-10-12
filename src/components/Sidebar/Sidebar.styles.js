@@ -33,7 +33,7 @@ export const SidebarWrapper = styled(Drawer)`
   }
 
   .MuiPaper-root {
-    width: 240px;
+    width: 17.3rem;
   }
 `;
 
@@ -50,10 +50,10 @@ export const SidebarAccordion = styled(Accordion)`
 
   .MuiAccordion-heading button {
     color: var(--color-white);
-    padding: 10px 0px 10px 10px !important;
+    padding: 16px 0px 16px 16px !important;
     letter-spacing: 0.1px;
     min-height: 42px;
-    max-height: 48px;
+    max-height: 64px;
   }
 `;
 
@@ -96,7 +96,7 @@ export const AccordionItem = styled(AccordionDetails)`
   background-color: var(--color-gray-dark);
   color: var(--color-white);
   transition: max-height 0.3s ease;
-  padding: 8px 16px !important;
+  padding: 12px 16px !important;
 
   &:hover {
     background-color: var(--color-gray-darker);
@@ -107,21 +107,20 @@ export const AccordionLink = styled(Link)`
   text-decoration: none;
   color: var(--color-white);
   font-size: 1rem !important;
-  font-family: "Inter", sans-serif !important;
-  font-weight: 500 !important;
-  padding: 10px !important;
+  font-family: "Montserrat", sans-serif !important;
+  font-weight: 600 !important;
+  padding: 12px !important;
   border: 1px solid transparent;
   border-radius: 4px;
   letter-spacing: 0.2px !important;
   line-height: 18px !important;
   width: 100%;
-  min-height: 42px;
   cursor: pointer;
 
   ${(props) =>
     props?.selected
       ? `
-        border: 1px solid var(--color-orange-secondary);
+        border: 1px solid rgba(242, 140, 31, 0.2);
         background-color: var(--color-gray-darker);
         `
       : ""}

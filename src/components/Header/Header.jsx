@@ -1,14 +1,12 @@
-import React from "react";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import * as S from "./Header.styles.js";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import logo from "../../assets/logo_fitback_horizontal.png";
 
 const Header = ({ pageTitle, isSidebarOpen, toggleSidebar }) => (
   <S.HeaderContainer>
-    <Toolbar>
+    <S.HeaderLogoWrapper>
       <IconButton
         edge="start"
         color="inherit"
@@ -17,10 +15,10 @@ const Header = ({ pageTitle, isSidebarOpen, toggleSidebar }) => (
       >
         <MenuIcon />
       </IconButton>
-      <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-        {pageTitle}
-      </Typography>
-    </Toolbar>
+      <S.Logo src={logo} alt="Fitback Logo" />
+      <S.HeaderDivider />
+    </S.HeaderLogoWrapper>
+    <S.HeaderPageTitle>Consultar Clientes</S.HeaderPageTitle>
   </S.HeaderContainer>
 );
 

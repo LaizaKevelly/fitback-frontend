@@ -1,14 +1,10 @@
-import { List, ListItemText, Box } from "@mui/material";
 import * as S from "./Sidebar.styles.js";
-import Accordion from "@mui/material/Accordion";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import AccordionSummary from "@mui/material/AccordionSummary";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useState } from "react";
-import { Link } from "react-router";
 
 const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
   const [expanded, setExpanded] = useState("panel0");
+  const [activeLink, setActiveLink] = useState("");
 
   const handleAccordionChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -32,31 +28,56 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
         >
           <p>Clientes</p>
         </S.AccordionLabel>
-        {console.log(window.location.pathname)}
         <S.AccordionItem>
           <S.AccordionLink
-            selected={window.location.pathname === "/clientes"}
-            to="/clientes"
+            selected={activeLink === "/consultar-clientes"}
+            to="/consultar-clientes"
+            onClick={() => setActiveLink("/consultar-clientes")}
           >
-            Consultar Clientes
+            Consultar
           </S.AccordionLink>
-          {/* <S.SidebarItem>
-            <ListItemText primary="Listar Clientes" />
-          </S.SidebarItem>
-          <S.SidebarItem>
-            <ListItemText primary="Adicionar Cliente" />
-          </S.SidebarItem> */}
+        </S.AccordionItem>
+        <S.AccordionItem>
+          <S.AccordionLink
+            selected={activeLink === "/cadastrar-cliente"}
+            to="/cadastrar-cliente"
+            onClick={() => setActiveLink("/cadastrar-cliente")}
+          >
+            Cadastrar
+          </S.AccordionLink>
         </S.AccordionItem>
       </S.SidebarAccordion>
-      {/* <S.SidebarItem>
-          <ListItemText primary="Home" />
-        </S.SidebarItem>
-        <S.SidebarItem>
-          <ListItemText primary="About" />
-        </S.SidebarItem>
-        <S.SidebarItem>
-          <ListItemText primary="Settings" />
-        </S.SidebarItem> */}
+      <S.SidebarAccordion
+        expanded={expanded === "panel2"}
+        onChange={handleAccordionChange("panel2")}
+      >
+        <S.AccordionLabel
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel2a-content"
+          id="panel2a-header"
+          expanded={expanded === "panel2"}
+        >
+          <p>Categorias de Feedback</p>
+        </S.AccordionLabel>
+        <S.AccordionItem>
+          <S.AccordionLink
+            selected={activeLink === "/consultar-categorias"}
+            to="/consultar-categorias"
+            onClick={() => setActiveLink("/consultar-categorias")}
+          >
+            Consultar
+          </S.AccordionLink>
+        </S.AccordionItem>
+        <S.AccordionItem>
+          <S.AccordionLink
+            selected={activeLink === "/cadastrar-categoria"}
+            to="/cadastrar-categoria"
+            onClick={() => setActiveLink("/cadastrar-categoria")}
+          >
+            Cadastrar
+          </S.AccordionLink>
+        </S.AccordionItem>
+      </S.SidebarAccordion>
     </S.SidebarWrapper>
   );
 };
