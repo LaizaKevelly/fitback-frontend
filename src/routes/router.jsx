@@ -21,7 +21,10 @@ const Router = () => {
         <Route element={<DefaultLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/example" element={<Example />} />
-          <Route path="/clientes" element={<Example />} />
+          <Route path="/consultar-clientes" element={<Example />} />
+          <Route path="/cadastrar-cliente" element={<Example />} />
+          <Route path="/consultar-categorias" element={<Example />} />
+          <Route path="/cadastrar-categoria" element={<Example />} />
           {/* Essas rotas precisam que seus componentes sejam importados */}
           {/* <Route path="/feedback/novo" element={<Feedback />} /> */}
           {/* <Route path="/relatorios" element={<Reports />} />  */}
