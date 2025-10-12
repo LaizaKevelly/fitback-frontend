@@ -77,7 +77,7 @@ const mainTheme = createTheme({
           height: "48px",
           width: "100%",
           fontSize: "1rem",
-          borderRadius: "4px",
+          borderRadius: "999px",
           textTransform: "none",
           transition: "all 0.5s ease-in-out",
         },

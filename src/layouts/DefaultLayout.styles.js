@@ -18,6 +18,6 @@ export const Main = styled.main`
   margin-left: ${(props) => (props.isSidebarOpen ? "17.3rem" : "0")};
   padding: 1rem 2rem;
   transition: margin-left 0.1s ease-in-out !important;
-  width: 100%
+  width: 100%;
   height: calc(100vh - 5rem);
 `;
