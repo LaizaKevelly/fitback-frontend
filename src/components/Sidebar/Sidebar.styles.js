@@ -17,8 +17,8 @@ export const SidebarWrapper = styled(Drawer)`
   height: calc(100vh - ${HEADER_HEIGHT});
   z-index: 0;
   overflow: hidden;
-  transition: width 0.2s;
   margin-top: ${HEADER_HEIGHT};
+  flex-shrink: 0;
 
   .MuiAccordion-root::before {
     content: none;
@@ -30,6 +30,8 @@ export const SidebarWrapper = styled(Drawer)`
     margin-top: ${HEADER_HEIGHT};
     border-right: 2px solid var(--color-gray-dark) !important;
     overflow-x: hidden;
+    width: ${(props) => (props.open ? "17.3rem" : "0")} !important;
+    transition: width 0.3s ease-in-out !important;
   }
 
   .MuiPaper-root {
