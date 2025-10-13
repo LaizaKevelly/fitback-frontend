@@ -9,6 +9,7 @@ export const HeaderContainer = styled.header`
   height: 5rem;
   position: sticky;
   top: 0;
+  z-index: 1000;
 
   svg {
     color: var(--color-orange-secondary);

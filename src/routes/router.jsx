@@ -3,6 +3,11 @@ import HomeLayout from "../layouts/HomeLayout.jsx";
 import DefaultLayout from "../layouts/DefaultLayout.jsx";
 import Home from "../pages/home/Home.jsx";
 import Example from "../pages/Example/Example.jsx";
+import RegisterClient from "../pages/Clients/RegisterClient.jsx";
+// import Login from '../pages/Auth/Login.jsx';
+// import Register from '../pages/Auth/Register.jsx';
+// import Feedback from '../pages/Feedback/Feedback.jsx';
+// import Reports from '../pages/Reports/Reports.jsx';
 
 const Router = () => {
   return (
@@ -16,7 +21,7 @@ const Router = () => {
           <Route path="/app" element={<Home />} />
           <Route path="/example" element={<Example />} />
           <Route path="/consultar-clientes" element={<Example />} />
-          <Route path="/cadastrar-cliente" element={<Example />} />
+          <Route path="/cadastrar-cliente" element={<RegisterClient />} />
           <Route path="/consultar-categorias" element={<Example />} />
           <Route path="/cadastrar-categoria" element={<Example />} />
         </Route>

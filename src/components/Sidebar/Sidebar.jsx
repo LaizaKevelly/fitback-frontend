@@ -15,6 +15,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
       open={isSidebarOpen}
       onClose={toggleSidebar(false)}
       variant="persistent"
+      hideBackdrop
     >
       <S.SidebarAccordion
         expanded={expanded === "panel1"}
