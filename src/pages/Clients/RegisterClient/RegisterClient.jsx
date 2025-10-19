@@ -1,6 +1,6 @@
 import { Button, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
-import { usePageTitle } from "../../context/PageTitleContext";
+import { usePageTitle } from "../../../context/PageTitleContext.jsx";
 import * as S from "./RegisterClient.styles.js";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import AddIcon from "@mui/icons-material/Add";

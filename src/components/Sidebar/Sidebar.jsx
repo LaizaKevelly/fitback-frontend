@@ -1,6 +1,6 @@
 import * as S from "./Sidebar.styles.js";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
   const [expanded, setExpanded] = useState("panel0");
@@ -10,6 +10,10 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
     setExpanded(newExpanded ? panel : false);
   };
 
+  useEffect(() => {
+    setActiveLink(location.pathname);
+  }, [location.pathname]);
+
   return (
     <S.SidebarWrapper
       open={isSidebarOpen}
@@ -17,6 +21,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
       variant="persistent"
       hideBackdrop
     >
+      {console.log(activeLink)}
       <S.SidebarAccordion
         expanded={expanded === "panel1"}
         onChange={handleAccordionChange("panel1")}
