@@ -1,11 +1,10 @@
 import { Button, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
-import { usePageTitle } from "../../../context/PageTitleContext.jsx";
 import * as S from "../RegisterClient/RegisterClient.styles.js";
 import { DialogWrapper } from "./EditClientModal.styles.js";
 import CheckTwoTone from "@mui/icons-material/CheckTwoTone";
 import CancelTwoTone from "@mui/icons-material/CancelTwoTone";
-import Dialog from "@mui/material/Dialog";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 
 const INITIAL_FORM_STATE = {
   firstName: "",
@@ -18,7 +17,13 @@ const INITIAL_FORM_STATE = {
   confirmPassword: "",
 };
 
-const EditClientModal = ({ openEditModal, setOpenEditModal, client }) => {
+const EditClientModal = ({
+  openEditModal,
+  setOpenEditModal,
+  client,
+  detailsMode,
+  setDetailsMode,
+}) => {
   const [formClient, setFormClient] = useState(INITIAL_FORM_STATE);
 
   useEffect(() => {
@@ -34,8 +39,7 @@ const EditClientModal = ({ openEditModal, setOpenEditModal, client }) => {
 
   return (
     <DialogWrapper open={openEditModal} onClose={() => setOpenEditModal(false)}>
-      {console.log(client)}
-      <h3>Editar Cliente</h3>
+      <h3>{detailsMode ? "Detalhes do Cliente" : "Editar Cliente"}</h3>
       <S.RegisterClientForm>
         <S.FormGrid>
           <TextField
@@ -49,6 +53,8 @@ const EditClientModal = ({ openEditModal, setOpenEditModal, client }) => {
             label="Nome*"
             variant="outlined"
             margin="normal"
+            readOnly={detailsMode}
+            disabled={detailsMode}
           />
           <TextField
             id="last-name-input"
@@ -61,6 +67,8 @@ const EditClientModal = ({ openEditModal, setOpenEditModal, client }) => {
             label="Sobrenome*"
             variant="outlined"
             margin="normal"
+            readOnly={detailsMode}
+            disabled={detailsMode}
           />
           <TextField
             id="cpf-input"
@@ -72,6 +80,8 @@ const EditClientModal = ({ openEditModal, setOpenEditModal, client }) => {
             label="CPF*"
             variant="outlined"
             margin="normal"
+            readOnly={detailsMode}
+            disabled={detailsMode}
           />
           <TextField
             id="registration-input"
@@ -83,6 +93,8 @@ const EditClientModal = ({ openEditModal, setOpenEditModal, client }) => {
             label="Matrícula*"
             variant="outlined"
             margin="normal"
+            readOnly={detailsMode}
+            disabled={detailsMode}
           />
           <TextField
             id="email-input"
@@ -94,6 +106,8 @@ const EditClientModal = ({ openEditModal, setOpenEditModal, client }) => {
             label="Email*"
             variant="outlined"
             margin="normal"
+            readOnly={detailsMode}
+            disabled={detailsMode}
           />
           <TextField
             id="phone-input"
@@ -105,6 +119,8 @@ const EditClientModal = ({ openEditModal, setOpenEditModal, client }) => {
             label="Telefone*"
             variant="outlined"
             margin="normal"
+            readOnly={detailsMode}
+            disabled={detailsMode}
           />
         </S.FormGrid>
         <S.ActionRow>
@@ -112,17 +128,20 @@ const EditClientModal = ({ openEditModal, setOpenEditModal, client }) => {
             startIcon={<CancelTwoTone />}
             variant="outlined"
             color="secondary"
-            onClick={() => setOpenEditModal(false)}
+            onClick={() => {
+              setOpenEditModal(false);
+              setDetailsMode(false);
+            }}
           >
-            Cancelar
+            {detailsMode ? "Fechar" : "Cancelar"}
           </Button>
           <Button
-            startIcon={<CheckTwoTone />}
+            startIcon={detailsMode ? <EditOutlinedIcon /> : <CheckTwoTone />}
             variant="contained"
             color="primary"
-            onClick={() => setOpenEditModal(false)}
+            onClick={() => setDetailsMode(false)}
           >
-            Salvar Alterações
+            {detailsMode ? "Editar" : "Salvar Alterações"}
           </Button>
         </S.ActionRow>
       </S.RegisterClientForm>

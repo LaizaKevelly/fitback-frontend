@@ -60,6 +60,7 @@ const ConsultClients = () => {
   const [openEditModal, setOpenEditModal] = useState(false);
   const [selectedClient, setSelectedClient] = useState({});
   const [openInactivateModal, setOpenInactivateModal] = useState(false);
+  const [detailsMode, setDetailsMode] = useState(false);
   const { setTitle } = usePageTitle();
   const navigate = useNavigate();
 
@@ -161,7 +162,11 @@ const ConsultClients = () => {
             >
               <EditOutlinedIcon fontSize="small" />
             </IconButton>
-            <IconButton size="small" color="error">
+            <IconButton size="small" color="error" onClick={() => {
+              setOpenEditModal(true);
+              setSelectedClient(params.row);
+              setDetailsMode(true);
+            }}>
               <VisibilityOutlinedIcon fontSize="small" />
             </IconButton>
           </S.ActionsContainer>
@@ -240,6 +245,8 @@ const ConsultClients = () => {
         openEditModal={openEditModal}
         setOpenEditModal={setOpenEditModal}
         client={selectedClient}
+        detailsMode={detailsMode}
+        setDetailsMode={setDetailsMode}
       />
     </S.ConsultClientsContainer>
   );
