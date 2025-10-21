@@ -44,7 +44,7 @@ const Home = () => {
     },
     {
       title: "Perguntas",
-      description: "Gerencie as perguntas dos questionários",
+      description: "Gerencie as perguntas do sistema",
       icon: <Quiz sx={{ fontSize: 40 }} />,
       path: "/example",
       color: theme.palette.success.main
@@ -68,7 +68,6 @@ const Home = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Container sx={{ mt: 5, mb: 5 }}>
-        {/* Header da Página - ESTILO IGUAL AO EXEMPLO */}
         <Typography variant="h1" gutterBottom>
           Bem-vindo ao FITBACK
         </Typography>
@@ -77,7 +76,7 @@ const Home = () => {
           sx={{ color: theme.palette.text.secondary }}
           gutterBottom
         >
-          Sistema de Gestão de Feedbacks - 2025
+          Sistema de Gestão de Feedbacks
         </Typography>
         <Divider sx={{ my: 4 }} />
         
@@ -99,8 +98,9 @@ const Home = () => {
             display: "flex",
             flexDirection: "column",
             backgroundColor: theme.palette.background.paper,
-            maxWidth: 350, // Largura máxima para os cards
-            margin: '0 auto', // Centraliza o card individualmente
+            maxWidth: 350, 
+            margin: '0 auto',
+            minHeight: 320,
           }}
         >
           <CardContent sx={{ p: 3, flexGrow: 1, display: "flex", flexDirection: "column" }}>
@@ -116,7 +116,7 @@ const Home = () => {
                 backgroundColor: `${item.color}15`,
                 color: item.color,
                 mb: 2,
-                mx: 'auto', // Centraliza o ícone
+                mx: 'auto', 
               }}
             >
               {item.icon}
@@ -140,6 +140,9 @@ const Home = () => {
               fullWidth
               sx={{
                 backgroundColor: item.color,
+                py: 1.5,
+                fontSize: '1rem',
+                fontWeight: 600,
                 "&:hover": {
                   backgroundColor: item.color,
                   opacity: 0.9
