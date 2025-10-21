@@ -2,49 +2,48 @@ import React, { useState, useEffect } from "react";
 import { usePageTitle } from "../../context/PageTitleContext";
 import "./ListCategories.css";
 
+const dadosIniciais = [
+  {
+    id: 1,
+    nome: "Infraestrutura",
+    descricao: "Equipamentos e espaço físico",
+    data: "2025-07-10",
+    ativo: true,
+  },
+  {
+    id: 2,
+    nome: "Atendimento",
+    descricao: "Avaliação do atendimento ao cliente",
+    data: "2025-07-12",
+    ativo: true,
+  },
+  {
+    id: 3,
+    nome: "Limpeza",
+    descricao: "Higiene e manutenção dos espaços",
+    data: "2025-07-13",
+    ativo: false,
+  },
+];
+
 const ListCategories = () => {
-  const { setPageTitle } = usePageTitle();
+  const { setTitle } = usePageTitle();
   const [categorias, setCategorias] = useState([]);
   const [categoriasFiltradas, setCategoriasFiltradas] = useState([]);
   const [busca, setBusca] = useState("");
 
   useEffect(() => {
-    setPageTitle("Listagem de Categorias");
-    
-    // Dados iniciais - futuramente substituir por chamada de API
-    const dadosIniciais = [
-      { 
-        id: 1, 
-        nome: "Infraestrutura", 
-        descricao: "Equipamentos e espaço físico", 
-        data: "2025-07-10", 
-        ativo: true 
-      },
-      { 
-        id: 2, 
-        nome: "Atendimento", 
-        descricao: "Avaliação do atendimento ao cliente", 
-        data: "2025-07-12", 
-        ativo: true 
-      },
-      { 
-        id: 3, 
-        nome: "Limpeza", 
-        descricao: "Higiene e manutenção dos espaços", 
-        data: "2025-07-13", 
-        ativo: false 
-      },
-    ];
+    setTitle("Consultar Categorias");
     setCategorias(dadosIniciais);
     setCategoriasFiltradas(dadosIniciais);
-  }, [setPageTitle]);
+  }, []);
 
   const handleSearch = () => {
     if (busca.trim() === "") {
       setCategoriasFiltradas(categorias);
       return;
     }
-    
+
     const resultado = categorias.filter((cat) =>
       cat.nome.toLowerCase().includes(busca.toLowerCase())
     );
@@ -71,7 +70,9 @@ const ListCategories = () => {
 
   const handleInativar = (id) => {
     // TODO: Implementar confirmação e inativação
-    const confirmar = window.confirm("Deseja realmente inativar esta categoria?");
+    const confirmar = window.confirm(
+      "Deseja realmente inativar esta categoria?"
+    );
     if (confirmar) {
       handleToggleStatus(id);
     }
@@ -137,15 +138,15 @@ const ListCategories = () => {
                     </button>
                   </td>
                   <td className="acoes">
-                    <button 
-                      className="btn-acao btn-editar" 
+                    <button
+                      className="btn-acao btn-editar"
                       onClick={() => handleEditar(cat.id)}
                       title="Editar"
                     >
                       ✏️
                     </button>
-                    <button 
-                      className="btn-acao btn-deletar" 
+                    <button
+                      className="btn-acao btn-deletar"
                       onClick={() => handleInativar(cat.id)}
                       title="Inativar"
                     >
