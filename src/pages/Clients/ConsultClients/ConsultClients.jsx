@@ -17,6 +17,7 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import { useNavigate } from "react-router";
 import EditClientModal from "../EditClient/EditClientModal.jsx";
+import InactivateClientModal from "../InactivateClient/InactivateClientModal.jsx";
 
 const rows = [
   {
@@ -58,6 +59,7 @@ const ConsultClients = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [openEditModal, setOpenEditModal] = useState(false);
   const [selectedClient, setSelectedClient] = useState({});
+  const [openInactivateModal, setOpenInactivateModal] = useState(false);
   const { setTitle } = usePageTitle();
   const navigate = useNavigate();
 
@@ -139,7 +141,14 @@ const ConsultClients = () => {
           <S.ActionsContainer>
             <Switch
               checked={params.row.status === "Ativo"}
-              // onChange={(e) => handleStatusChange(e, params.row.id)}
+              onChange={() => {
+                if (params.row.status === "Ativo") {
+                  setOpenInactivateModal(true);
+                  setSelectedClient(params.row);
+                } else {
+                  params.row.status = "Ativo";
+                }
+              }}
               color="primary"
             />
             <IconButton
@@ -222,6 +231,11 @@ const ConsultClients = () => {
           </TableBody>
         </Table>
       </S.ClientsList>
+      <InactivateClientModal
+        open={openInactivateModal}
+        onClose={() => setOpenInactivateModal(false)}
+        clientName={`${selectedClient.firstName} ${selectedClient.lastName}`}
+      />
       <EditClientModal
         openEditModal={openEditModal}
         setOpenEditModal={setOpenEditModal}
