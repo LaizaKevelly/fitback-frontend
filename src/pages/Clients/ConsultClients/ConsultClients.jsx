@@ -16,36 +16,48 @@ import AddIcon from "@mui/icons-material/Add";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import { useNavigate } from "react-router";
+import EditClientModal from "../EditClient/EditClientModal.jsx";
 
 const rows = [
   {
     id: 1,
-    nome: "Ana Silva",
+    firstName: "Ana",
+    lastName: "Silva",
     email: "ana.silva@example.com",
     cpf: "123.456.789-00",
-    dataCadastro: "2024-02-15",
+    registration: "2024001",
+    createdAt: "2024-02-15",
+    phone: "11987654321",
     status: "Ativo",
   },
   {
     id: 2,
-    nome: "Bruno Souza",
+    firstName: "Bruno",
+    lastName: "Souza",
     email: "bruno.souza@example.com",
     cpf: "987.654.321-11",
-    dataCadastro: "2023-11-03",
+    registration: "2024002",
+    createdAt: "2023-11-03",
+    phone: "11987654322",
     status: "Inativo",
   },
   {
     id: 3,
-    nome: "Carla Pereira",
+    firstName: "Carla",
+    lastName: "Pereira",
     email: "carla.pereira@example.com",
     cpf: "111.222.333-44",
-    dataCadastro: "2025-01-08",
+    registration: "2024003",
+    createdAt: "2025-01-08",
+    phone: "11987654323",
     status: "Ativo",
   },
 ];
 
 const ConsultClients = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const [selectedClient, setSelectedClient] = useState({});
   const { setTitle } = usePageTitle();
   const navigate = useNavigate();
 
@@ -59,10 +71,12 @@ const ConsultClients = () => {
 
   const columns = [
     {
-      field: "nome",
+      field: "name",
       headerName: "Nome Completo",
       flex: 1.5,
       minWidth: 200,
+      renderCell: (params) =>
+        `${params.row.firstName || ""} ${params.row.lastName || ""}`,
     },
     {
       field: "email",
@@ -77,11 +91,11 @@ const ConsultClients = () => {
       minWidth: 140,
     },
     {
-      field: "dataCadastro",
+      field: "createdAt",
       headerName: "Data do Cadastro",
       flex: 1,
       minWidth: 160,
-      valueGetter: (params) => params.row.dataCadastro,
+      valueGetter: (params) => params.row.createdAt,
       renderCell: (params) =>
         new Date(params.value).toLocaleDateString(undefined, {
           day: "2-digit",
@@ -128,7 +142,14 @@ const ConsultClients = () => {
               // onChange={(e) => handleStatusChange(e, params.row.id)}
               color="primary"
             />
-            <IconButton size="small" color="primary">
+            <IconButton
+              size="small"
+              color="primary"
+              onClick={() => {
+                setOpenEditModal(true);
+                setSelectedClient(params.row);
+              }}
+            >
               <EditOutlinedIcon fontSize="small" />
             </IconButton>
             <IconButton size="small" color="error">
@@ -147,7 +168,7 @@ const ConsultClients = () => {
           variant="filled"
           value={searchTerm}
           onChange={handleSearchChange}
-          placeholder="Buscar cliente por nome ou CPF..."
+          placeholder="Buscar cliente por name ou CPF..."
           slotProps={{
             input: {
               endAdornment: (
@@ -171,7 +192,7 @@ const ConsultClients = () => {
           variant="outlined"
           color="primary"
           startIcon={<AddIcon />}
-          onClick={()=> navigate('/cadastrar-cliente')}
+          onClick={() => navigate("/cadastrar-cliente")}
         >
           Novo Cliente
         </Button>
@@ -201,6 +222,11 @@ const ConsultClients = () => {
           </TableBody>
         </Table>
       </S.ClientsList>
+      <EditClientModal
+        openEditModal={openEditModal}
+        setOpenEditModal={setOpenEditModal}
+        client={selectedClient}
+      />
     </S.ConsultClientsContainer>
   );
 };
