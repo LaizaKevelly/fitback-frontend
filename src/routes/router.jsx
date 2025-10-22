@@ -5,6 +5,8 @@ import Home from "../pages/home/Home.jsx";
 import Example from "../pages/Example/Example.jsx";
 import RegisterClient from "../pages/Clients/RegisterClient/RegisterClient.jsx";
 import RegisterCategory from "../pages/Categories/RegisterCategory.jsx"; 
+import Login from '../pages/Auth/Login.jsx';
+
 // import Login from '../pages/Auth/Login.jsx';
 // import Register from '../pages/Auth/Register.jsx';
 // import Feedback from '../pages/Feedback/Feedback.jsx';
@@ -14,10 +16,13 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/login" element={<Login />} />
+
         <Route element={<HomeLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
         </Route>
+
         <Route element={<DefaultLayout />}>
           <Route path="/app" element={<Home />} />
           <Route path="/example" element={<Example />} />
