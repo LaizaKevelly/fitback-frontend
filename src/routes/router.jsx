@@ -15,10 +15,13 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/login" element={<Login />} />
+
         <Route element={<HomeLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
         </Route>
+
         <Route element={<DefaultLayout />}>
           <Route path="/app" element={<Home />} />
           <Route path="/example" element={<Example />} />
