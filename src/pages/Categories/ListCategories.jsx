@@ -43,7 +43,6 @@ const ListCategories = () => {
       setCategoriasFiltradas(categorias);
       return;
     }
-
     const resultado = categorias.filter((cat) =>
       cat.nome.toLowerCase().includes(busca.toLowerCase())
     );

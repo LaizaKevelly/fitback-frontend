@@ -22,7 +22,7 @@ const Router = () => {
         <Route element={<DefaultLayout />}>
           <Route path="/app" element={<Home />} />
           <Route path="/example" element={<Example />} />
-          <Route path="/consultar-clientes" element={<ConsultClients />} />
+          <Route path="/consultar-clientes" element={<Example />} />
           <Route path="/cadastrar-cliente" element={<RegisterClient />} />
           <Route path="/consultar-categorias" element={<ListCategories />} />
           <Route path="/cadastrar-categoria" element={<Example />} />
