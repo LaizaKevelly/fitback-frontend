@@ -36,13 +36,6 @@ const Home = () => {
       color: theme.palette.primary.main
     },
     {
-      title: "Categories",
-      description: "Categorias de feedback disponíveis",
-      icon: <Category sx={{ fontSize: 40 }} />,
-      path: "/consultar-categorias",
-      color: theme.palette.secondary.main
-    },
-    {
       title: "Perguntas",
       description: "Gerencie as perguntas do sistema",
       icon: <Quiz sx={{ fontSize: 40 }} />,
@@ -53,7 +46,7 @@ const Home = () => {
       title: "Questionarios",
       description: "Crie e gerencie questionários",
       icon: <Assignment sx={{ fontSize: 40 }} />,
-      path: "/example",
+      path: "/consultar-questionario",
       color: theme.palette.warning.main
     },
     {
