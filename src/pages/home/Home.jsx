@@ -18,7 +18,6 @@ import {
   Assignment, 
   Dashboard
 } from "@mui/icons-material";
-// CORREÇÃO DAS IMPORTAÇÕES DOS ÍCONES:
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ErrorIcon from "@mui/icons-material/Error";
 import { useNavigate } from "react-router-dom";
@@ -36,24 +35,17 @@ const Home = () => {
       color: theme.palette.primary.main
     },
     {
-      title: "Categories",
-      description: "Categorias de feedback disponíveis",
-      icon: <Category sx={{ fontSize: 40 }} />,
-      path: "/consultar-categorias",
-      color: theme.palette.secondary.main
-    },
-    {
       title: "Perguntas",
       description: "Gerencie as perguntas do sistema",
       icon: <Quiz sx={{ fontSize: 40 }} />,
-      path: "/example",
+      path: "/gerenciar-perguntas",
       color: theme.palette.success.main
     },
     {
       title: "Questionarios",
       description: "Crie e gerencie questionários",
       icon: <Assignment sx={{ fontSize: 40 }} />,
-      path: "/example",
+      path: "/consultar-questionario",
       color: theme.palette.warning.main
     },
     {
