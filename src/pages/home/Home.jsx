@@ -18,7 +18,6 @@ import {
   Assignment, 
   Dashboard
 } from "@mui/icons-material";
-// CORREÇÃO DAS IMPORTAÇÕES DOS ÍCONES:
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ErrorIcon from "@mui/icons-material/Error";
 import { useNavigate } from "react-router-dom";
@@ -39,7 +38,7 @@ const Home = () => {
       title: "Perguntas",
       description: "Gerencie as perguntas do sistema",
       icon: <Quiz sx={{ fontSize: 40 }} />,
-      path: "/example",
+      path: "/gerenciar-perguntas",
       color: theme.palette.success.main
     },
     {

@@ -7,7 +7,7 @@ import RegisterClient from "../pages/Clients/RegisterClient/RegisterClient.jsx";
 import RegisterCategory from "../pages/Categories/RegisterCategory.jsx"; 
 import Login from '../pages/Auth/Login.jsx';
 import QuestionnaireList from '../pages/Questionnaire/QuestionnaireList.jsx';
-
+import QuestionManagement from '../pages/Questions/QuestionManagement.jsx';
 
 // import Login from '../pages/Auth/Login.jsx';
 // import Register from '../pages/Auth/Register.jsx';
@@ -34,6 +34,7 @@ const Router = () => {
           <Route path="/consultar-categorias" element={<Example />} />
           <Route path="/cadastrar-categoria" element={<RegisterCategory />} />
           <Route path="/consultar-questionario" element={<QuestionnaireList/>} />
+          <Route path="/gerenciar-perguntas" element={<QuestionManagement/>} />
         </Route>
       </Routes>
     </BrowserRouter>
