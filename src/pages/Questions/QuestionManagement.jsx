@@ -198,7 +198,7 @@ const QuestionManagement = () => {
           Gerenciador de Perguntas
         </Typography>
         <Typography variant="h6" sx={{ color: 'text.secondary', fontSize: '1.1rem' }}>
-          CRUD completo para gerenciar perguntas de feedback da academia
+          Gerencie e crie perguntas para os questionários 
         </Typography>
       </Box>
 
@@ -318,7 +318,7 @@ const QuestionManagement = () => {
             {/* Estatísticas */}
             <Paper elevation={1} sx={{ p: 2, mt: 3, bgcolor: LIGHT_BG }}>
               <Typography variant="h6" gutterBottom sx={{ fontSize: '1rem', fontWeight: 'bold' }}>
-                📊 Estatísticas
+                Perguntas
               </Typography>
               <List dense>
                 <ListItem>
