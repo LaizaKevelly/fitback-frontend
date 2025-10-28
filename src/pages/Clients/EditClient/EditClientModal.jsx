@@ -7,14 +7,13 @@ import CancelTwoTone from "@mui/icons-material/CancelTwoTone";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 
 const INITIAL_FORM_STATE = {
-  firstName: "",
-  lastName: "",
+  nome: "",
   cpf: "",
-  registration: "",
+  matricula: "",
   email: "",
-  phone: "",
-  password: "",
-  confirmPassword: "",
+  telefone: "",
+  senha: "",
+  confirmarSenha: "",
 };
 
 const EditClientModal = ({
@@ -23,17 +22,17 @@ const EditClientModal = ({
   client,
   detailsMode,
   setDetailsMode,
+  updateClient,
 }) => {
   const [formClient, setFormClient] = useState(INITIAL_FORM_STATE);
 
   useEffect(() => {
     setFormClient({
-      firstName: client.firstName || "",
-      lastName: client.lastName || "",
-      cpf: client.cpf || "",
-      registration: client.registration || "",
-      email: client.email || "",
-      phone: client.phone || "",
+      nome: client?.nome || "",
+      cpf: client?.cpf || "",
+      matricula: client?.matricula || "",
+      email: client?.email || "",
+      telefone: client?.telefone || "",
     });
   }, [client]);
 
@@ -45,26 +44,12 @@ const EditClientModal = ({
           <TextField
             id="first-name-input"
             name="first-name-input"
-            value={formClient.firstName}
+            value={formClient.nome}
             className="first-name-input"
             onChange={(e) =>
-              setFormClient({ ...formClient, firstName: e.target.value })
+              setFormClient({ ...formClient, nome: e.target.value })
             }
             label="Nome*"
-            variant="outlined"
-            margin="normal"
-            readOnly={detailsMode}
-            disabled={detailsMode}
-          />
-          <TextField
-            id="last-name-input"
-            name="last-name-input"
-            value={formClient.lastName}
-            className="last-name-input"
-            onChange={(e) =>
-              setFormClient({ ...formClient, lastName: e.target.value })
-            }
-            label="Sobrenome*"
             variant="outlined"
             margin="normal"
             readOnly={detailsMode}
@@ -86,9 +71,9 @@ const EditClientModal = ({
           <TextField
             id="registration-input"
             name="registration-input"
-            value={formClient.registration}
+            value={formClient.matricula}
             onChange={(e) =>
-              setFormClient({ ...formClient, registration: e.target.value })
+              setFormClient({ ...formClient, matricula: e.target.value })
             }
             label="Matrícula*"
             variant="outlined"
@@ -112,9 +97,9 @@ const EditClientModal = ({
           <TextField
             id="phone-input"
             name="phone-input"
-            value={formClient.phone}
+            value={formClient.telefone}
             onChange={(e) =>
-              setFormClient({ ...formClient, phone: e.target.value })
+              setFormClient({ ...formClient, telefone: e.target.value })
             }
             label="Telefone*"
             variant="outlined"
@@ -139,7 +124,14 @@ const EditClientModal = ({
             startIcon={detailsMode ? <EditOutlinedIcon /> : <CheckTwoTone />}
             variant="contained"
             color="primary"
-            onClick={() => setDetailsMode(false)}
+            onClick={(e) => {
+              e.preventDefault();
+              setDetailsMode(false);
+              if (!detailsMode) {
+                updateClient(client, formClient);
+                setOpenEditModal(false);
+              }
+            }}
           >
             {detailsMode ? "Editar" : "Salvar Alterações"}
           </Button>

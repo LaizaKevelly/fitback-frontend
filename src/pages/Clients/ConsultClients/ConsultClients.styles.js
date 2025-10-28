@@ -36,6 +36,10 @@ export const SearchInput = styled(TextField)`
 export const ClientsList = styled.div`
   width: 100%;
   overflow-x: auto;
+
+  .status-span {
+    text-transform: capitalize;
+  }
 `;
 
 export const ClientTableHead = styled(TableHead)`

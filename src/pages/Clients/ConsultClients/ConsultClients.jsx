@@ -6,6 +6,7 @@ import {
   Button,
   IconButton,
   InputAdornment,
+  Snackbar,
   Switch,
   Table,
   TableBody,
@@ -15,54 +16,88 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-import { useNavigate } from "react-router";
+import { data, useNavigate } from "react-router";
 import EditClientModal from "../EditClient/EditClientModal.jsx";
 import InactivateClientModal from "../InactivateClient/InactivateClientModal.jsx";
+import clienteService from "../../../services/clienteService.js";
+import Alert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
 
 const rows = [
   {
-    id: 1,
-    firstName: "Ana",
-    lastName: "Silva",
+    id_usuario: 1,
+    id_cliente: 101,
+    nome: "Ana",
     email: "ana.silva@example.com",
     cpf: "123.456.789-00",
-    registration: "2024001",
-    createdAt: "2024-02-15",
-    phone: "11987654321",
+    matricula: "2024001",
+    telefone: "11987654321",
     status: "Ativo",
+    status_aluno: "Ativo",
+    data_cadastro: "2024-01-15",
+    data_desistencia: null,
   },
   {
-    id: 2,
-    firstName: "Bruno",
-    lastName: "Souza",
+    id_usuario: 2,
+    id_cliente: 102,
+    nome: "Bruno",
     email: "bruno.souza@example.com",
     cpf: "987.654.321-11",
-    registration: "2024002",
-    createdAt: "2023-11-03",
-    phone: "11987654322",
+    matricula: "2024002",
+    telefone: "11987654322",
     status: "Inativo",
+    status_aluno: "Inativo",
+    data_desistencia: null,
+    data_cadastro: "2024-02-20",
   },
   {
-    id: 3,
-    firstName: "Carla",
-    lastName: "Pereira",
+    id_usuario: 3,
+    id_cliente: 103,
+    nome: "Carla",
     email: "carla.pereira@example.com",
     cpf: "111.222.333-44",
-    registration: "2024003",
-    createdAt: "2025-01-08",
-    phone: "11987654323",
+    matricula: "2024003",
+    telefone: "11987654323",
     status: "Ativo",
+    status_aluno: "Ativo",
+    data_desistencia: null,
+    data_cadastro: "2024-03-10",
   },
 ];
 
 const ConsultClients = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [openEditModal, setOpenEditModal] = useState(false);
+  const [clients, setClients] = useState([]);
   const [selectedClient, setSelectedClient] = useState({});
   const [openInactivateModal, setOpenInactivateModal] = useState(false);
   const [detailsMode, setDetailsMode] = useState(false);
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: "",
+    severity: "",
+  });
   const { setTitle } = usePageTitle();
   const navigate = useNavigate();
+
+  const fetchClients = async () => {
+    try {
+      const response = await clienteService.getAllClientes();
+      setClients(response.data);
+    } catch (err) {
+      setSnackbar({
+        open: true,
+        message: err.response.data.message,
+        severity: "error",
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (clients.length === 0) {
+      fetchClients();
+    }
+  }, []);
 
   useEffect(() => {
     setTitle("Consultar Clientes");
@@ -72,14 +107,40 @@ const ConsultClients = () => {
     setSearchTerm(e.target.value);
   };
 
+  const updateClient = async (client, newClientData) => {
+    if (!client) return;
+    await clienteService
+      .updateCliente(client.id_cliente, {
+        ...client,
+        data_desistencia: new Date().toISOString().split("T")[0],
+        ...newClientData,
+      })
+      .then(() => {
+        fetchClients();
+        setSnackbar({
+          open: true,
+          message: "Cliente atualizado com sucesso!",
+          severity: "success",
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        setSnackbar({
+          open: true,
+          message: err.response.data.message || err.response.data.error,
+          severity: "error",
+        });
+      });
+    setSelectedClient(null);
+    setOpenInactivateModal(false);
+  };
+
   const columns = [
     {
-      field: "name",
+      field: "nome",
       headerName: "Nome Completo",
       flex: 1.5,
       minWidth: 200,
-      renderCell: (params) =>
-        `${params.row.firstName || ""} ${params.row.lastName || ""}`,
     },
     {
       field: "email",
@@ -94,17 +155,13 @@ const ConsultClients = () => {
       minWidth: 140,
     },
     {
-      field: "createdAt",
+      field: "data_cadastro",
       headerName: "Data do Cadastro",
       flex: 1,
       minWidth: 160,
-      valueGetter: (params) => params.row.createdAt,
+      valueGetter: (params) => params.row.data_cadastro,
       renderCell: (params) =>
-        new Date(params.value).toLocaleDateString(undefined, {
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric",
-        }),
+        new Date(params.value).toLocaleDateString("pt-BR"),
     },
     {
       field: "status",
@@ -118,14 +175,18 @@ const ConsultClients = () => {
           padding: "4px 8px",
           borderRadius: 12,
           background:
-            s === "Ativo"
+            s === "ativo"
               ? "rgba(76, 175, 80, 0.12)"
               : "rgba(244, 67, 54, 0.08)",
-          color: s === "Ativo" ? "#2e7d32" : "#c62828",
+          color: s === "ativo" ? "#2e7d32" : "#c62828",
           fontWeight: 500,
           fontSize: 13,
         };
-        return <span style={style}>{s}</span>;
+        return (
+          <span className="status-span" style={style}>
+            {s}
+          </span>
+        );
       },
     },
     {
@@ -141,13 +202,15 @@ const ConsultClients = () => {
         return (
           <S.ActionsContainer>
             <Switch
-              checked={params.row.status === "Ativo"}
+              checked={params.row.status === "ativo"}
               onChange={() => {
-                if (params.row.status === "Ativo") {
+                setSelectedClient(params.row);
+                if (params.row.status === "ativo") {
                   setOpenInactivateModal(true);
-                  setSelectedClient(params.row);
                 } else {
-                  params.row.status = "Ativo";
+                  updateClient(params.row, {
+                    status: "ativo",
+                  });
                 }
               }}
               color="primary"
@@ -162,11 +225,15 @@ const ConsultClients = () => {
             >
               <EditOutlinedIcon fontSize="small" />
             </IconButton>
-            <IconButton size="small" color="error" onClick={() => {
-              setOpenEditModal(true);
-              setSelectedClient(params.row);
-              setDetailsMode(true);
-            }}>
+            <IconButton
+              size="small"
+              color="error"
+              onClick={() => {
+                setOpenEditModal(true);
+                setSelectedClient(params.row);
+                setDetailsMode(true);
+              }}
+            >
               <VisibilityOutlinedIcon fontSize="small" />
             </IconButton>
           </S.ActionsContainer>
@@ -175,8 +242,23 @@ const ConsultClients = () => {
     },
   ];
 
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") return;
+    setSnackbar({ ...snackbar, open: false });
+  };
+
   return (
     <S.ConsultClientsContainer>
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert onClose={handleClose} severity={snackbar.severity} sx={{ width: "100%" }}>
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
       <S.SearchContainer>
         <S.SearchInput
           variant="filled"
@@ -222,24 +304,33 @@ const ConsultClients = () => {
             </TableRow>
           </S.ClientTableHead>
           <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row.id}>
-                {columns.map((column) => (
-                  <TableCell key={column.field}>
-                    {column.renderCell
-                      ? column.renderCell({ value: row[column.field], row })
-                      : row[column.field]}
-                  </TableCell>
-                ))}
+            {clients.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={columns.length} align="center">
+                  Nenhum cliente encontrado.
+                </TableCell>
               </TableRow>
-            ))}
+            ) : (
+              clients.map((row) => (
+                <TableRow key={row.id_cliente}>
+                  {columns.map((column) => (
+                    <TableCell key={column.field}>
+                      {column.renderCell
+                        ? column.renderCell({ value: row[column.field], row })
+                        : row[column.field]}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            )}
           </TableBody>
         </Table>
       </S.ClientsList>
       <InactivateClientModal
         open={openInactivateModal}
         onClose={() => setOpenInactivateModal(false)}
-        clientName={`${selectedClient.firstName} ${selectedClient.lastName}`}
+        client={selectedClient}
+        inactiveClient={updateClient}
       />
       <EditClientModal
         openEditModal={openEditModal}
@@ -247,6 +338,7 @@ const ConsultClients = () => {
         client={selectedClient}
         detailsMode={detailsMode}
         setDetailsMode={setDetailsMode}
+        updateClient={updateClient}
       />
     </S.ConsultClientsContainer>
   );
